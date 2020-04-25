@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Messages</h3>
+<br/>
+{% if not messages %}
+<p><i>No messages yet . . .</i></p>
+{% else %}
+	{% for msg in messages %}	
+	<p style="margin:2px">
+	<b>{{msg.username}}</b>
+	<div style="margin-left:20px">{{msg.text_content}}</div>
+	</p>
+	{% endfor %}
+{% endif %}
+{% endblock %}
+

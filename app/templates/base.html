@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<title>{{title}} - Dev Site</title>
+	</head>
+	<body>
+		<div id="header" style="background-color:rgb(280, 220, 220)">
+			<div style="font:open-sans;margin-right:10px;float:right">Welcome, {{user.username}}</div>
+			<ul style="padding-left:10px">
+				<li style="display:inline"><a href="/">Index</a></li>
+				<li style="display:inline"><a href="/messages">Messages</a></li>
+			</ul>
+		</div>
+		<br/>
+		<div>
+			{% block content %}
+			{% endblock %}
+		</div>
+	</body>
+</html>
+
