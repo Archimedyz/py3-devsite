@@ -4,14 +4,30 @@
 	</head>
 	<body>
 		<div id="header" style="background-color:rgb(280, 220, 220)">
-			<div style="font:open-sans;margin-right:10px;float:right">Welcome, {{user.username}}</div>
+			<div style="font:open-sans;margin-right:10px;float:right">
+				{% if user %}
+				Welcome, {{user.username}}
+				{% else %}
+				<a href="{{ url_for('login_page') }}">Login</a>
+				{% endif %}
+			</div>
 			<ul style="padding-left:10px">
-				<li style="display:inline"><a href="/">Index</a></li>
-				<li style="display:inline"><a href="/messages">Messages</a></li>
+				<li style="display:inline"><a href="{{ url_for('index_page') }}">Index</a></li>
+				<li style="display:inline"><a href="{{ url_for('messages_page') }}">Messages</a></li>
+				<li style="display:inline"><a href="{{ url_for('login_page') }}">Login</a></li>
 			</ul>
 		</div>
 		<br/>
 		<div>
+			{% with flashes = get_flashed_messages() %}
+			{% if flashes %}
+			<ul>
+				{% for flash in flashes %}
+				<li>{{ flash }}</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+			{% endwith %}
 			{% block content %}
 			{% endblock %}
 		</div>
