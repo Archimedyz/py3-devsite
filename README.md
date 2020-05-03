@@ -29,4 +29,4 @@ Modules installed for this project are:
 - `flask-wtf`
 - `flask-sqlalchemy`
 - `flask-migrate`
-
+- `flask-login`

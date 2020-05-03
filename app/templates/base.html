@@ -5,8 +5,8 @@
 	<body>
 		<div id="header" style="background-color:rgb(280, 220, 220)">
 			<div style="font:open-sans;margin-right:10px;float:right">
-				{% if user %}
-				Welcome, {{user.username}}
+				{% if not current_user.is_anonymous: %}
+				Welcome, {{current_user.username}}<a style="margin-left:5px" href="{{ url_for('logout') }}">Logout</a>
 				{% else %}
 				<a href="{{ url_for('login_page') }}">Login</a>
 				{% endif %}
@@ -14,7 +14,6 @@
 			<ul style="padding-left:10px">
 				<li style="display:inline"><a href="{{ url_for('index_page') }}">Index</a></li>
 				<li style="display:inline"><a href="{{ url_for('messages_page') }}">Messages</a></li>
-				<li style="display:inline"><a href="{{ url_for('login_page') }}">Login</a></li>
 			</ul>
 		</div>
 		<br/>
