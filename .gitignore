@@ -1,2 +1,4 @@
 pyenv/
 **/__pycache__/
+app.db
+
