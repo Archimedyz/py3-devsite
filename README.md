@@ -19,7 +19,7 @@ If this is your first time running the site, please go through the following ini
 Once the site is setup, here's how to run it from your terminal:
 
 - Navigate to the repository.
-- Before we can run the site, we need to let Flask know *where* the application is located. To do this, from the base directory simply do `export FLASK_APP=app.py`.
+- Before we can run the site, we need to let Flask know *where* the application is located. To do this, from the base directory simply do `export FLASK_APP=devsite.py`.
 - Now you should nw be able to run the site using `flask run`.
 
 ## Python modules
@@ -30,3 +30,4 @@ Modules installed for this project are:
 - `flask-sqlalchemy`
 - `flask-migrate`
 - `flask-login`
+- `email-validator` (Note: I only needed to install this because I had an error. It should have been installed w/ `flask-wtf` above.)
