@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<table>
+		<tr valign="top">
+			<td><img alt="avatar image" src="{{user.avatar(128)}}"></td>
+			<td>
+				<h2>{{user.username}}</h2>
+				{% if user.about_me %}<p>{{user.about_me}}</p>{% endif %}
+				<p>
+					<b>Last seen online:</b>
+					{% if user.last_seen %}
+					{{user.last_seen}}
+					{% else %}
+				        <i>Unknown</i>
+					{% endif %}
+				</p>
+			</td>
+		</tr>
+	</table>
+	<hr/>
+	{% if not posts %}
+	<p><i>This user hasn't posted yet . . .</i></p>
+	{% else %}
+	{% for post in posts %}	
+		{% include '_post.html' %}
+	{% endfor %}
+	{% endif %}
+{% endblock %}
+

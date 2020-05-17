@@ -4,6 +4,13 @@ from app.forms import LoginForm, SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
 from werkzeug.urls import url_parse
+from datetime import datetime
+
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()
 
 @app.route('/index')
 @app.route('/')
@@ -84,3 +91,12 @@ def signup_page():
         return redirect(url_for('login_page'))
 
     return render_template('signup.html', title='Sign Up', form=form)
+
+@app.route('/user/<username>')
+@login_required
+def user_page(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    posts = user.posts.all()
+
+    return render_template('user.html', user=user, posts=posts)
+
