@@ -17,6 +17,12 @@
 				</p>
 			</td>
 		</tr>
+		{% if user == current_user %}
+		<tr>
+			<td></td>
+			<td><a href="{{url_for('edit_profile_page')}}">Edit your profile</a></td>
+		</tr>
+		{% endif %}
 	</table>
 	<hr/>
 	{% if not posts %}
