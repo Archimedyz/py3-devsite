@@ -41,6 +41,17 @@ class EditProfileForm(FlaskForm):
     about_me = TextAreaField('Username', validators=[Length(min=0, max=140)])
     submit = SubmitField('Submit')
 
+    def __init__(self, initial_username, *args, **kwargs):
+        super(EditProfileForm, self).__init__(*args, **kwargs)
+        self.initial_username = initial_username
+
     def validate_username(self, username):
+        if self.initial_username and self.initial_username == username.data:
+            return
+
         if len(username.data) > 64:
             raise ValidationError('Username Cannot be longer than 64 characters.')
+
+        user = User.query.filter_by(username=username.data).first()
+        if user is not None:
+            raise ValidationError('Username is already taken. please choose a different value.')
