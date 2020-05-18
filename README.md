@@ -21,7 +21,7 @@ Once the site is setup, here's how to run it from your terminal:
 - Navigate to the repository.
 - Before we can run the site, we need to let Flask know *where* the application is located. To do this, from the base directory simply do `export FLASK_APP=devsite.py` (On Windows it would be `set FLASK_APP=devsite.py`).
 - Flask also supports `development` and `production` modes. You can change the mode by doing `export FLASK_ENV=<mode>` (On Windows it would be `set FLASK_ENV=<mode>`).
-    - In `production` mode, the app will try to send emails for internal server errors, and will display the built in error pages if found. If the application is running, any changes to the source files will not be reflected until the site is restarted.
+    - In `production` mode, the app will try to send emails for internal server errors, and will display the built in error pages if found. Additionally, all console logs wil also be sent to a file under the `/logs` directory. Finally, if the application is running, any changes to the source files will not be reflected until the site is restarted.
     - In `development` mode, the app will not display the built in error page for internal server errors, but instead show some debugging information. Addtionally, in this mode, hot-reloading is enabled, meaning any changes to the source files will take effect immediately.
 - Now you should now be able to run the site using `flask run`.
 

@@ -4,7 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 import logging
-from logging.handlers import SMTPHandler
+from logging.handlers import SMTPHandler, RotatingFileHandler
+import os
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -37,10 +38,35 @@ if not app.debug and app.config['MAIL_SERVER']:
         secure=secure
     )
 
-    # only use the handler for ERROR (or higher) logs.
+    # only use the handler for ERROR (or higher) logs
     mail_handler.setLevel(logging.ERROR)
 
-    # hook the handler into the app.
+    # hook the handler into the app
     app.logger.addHandler(mail_handler)
+
+### Rotating file handler
+if not app.debug:
+    # create log directory if not already present
+    if not os.path.exists('logs'):
+        os.mkdir('logs')
+
+    # initialize Rotating Filer handler
+    file_handler = RotatingFileHandler('logs/devsite.log',
+        maxBytes=10240,
+        backupCount=10
+    )
+
+    # set format and log level
+    file_handler.setLevel(logging.INFO)
+    file_handler.setFormatter(logging.Formatter(
+        '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+    ))
+
+    # hook handler into the app
+    app.logger.addHandler(file_handler)
+
+    # append the starup log
+    app.logger.setLevel(logging.INFO)
+    app.logger.info('Devsite startup')
 
 from app import routes, models, errors
